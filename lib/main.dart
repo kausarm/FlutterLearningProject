@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kausar/pages/tugas/column.dart';
+import 'package:kausar/pages/listview.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: 'Poppins'),
-      home: const Columntugas(),
+      home: const Listview(),
     );
   }
 }
