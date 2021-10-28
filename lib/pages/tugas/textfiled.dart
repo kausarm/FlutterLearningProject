@@ -20,6 +20,13 @@ class _FieldState extends State<Field> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               TextField(
+                decoration: const InputDecoration(
+                  hoverColor: Colors.amber,
+                  prefixIcon: Icon(Icons.person),
+                  border: OutlineInputBorder(),
+                  hintText: "Masukkan Nama",
+                  labelText: "Nama Depan",
+                ),
                 controller: controller,
                 onChanged: (value) {
                   setState(() {});

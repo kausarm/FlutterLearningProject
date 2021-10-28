@@ -23,6 +23,7 @@ class _DragState extends State<Drag> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.pinkAccent,
         title: Text("Latihan Dragable"),
       ),
       body: Column(
