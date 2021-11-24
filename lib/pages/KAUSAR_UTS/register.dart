@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kausar/pages/full_ui/login.dart';
+import 'package:kausar/pages/KAUSAR_UTS/login.dart';
+import 'package:kausar/pages/KAUSAR_UTS/login.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -19,11 +20,14 @@ class _RegisterPageState extends State<RegisterPage> {
         margin: const EdgeInsets.fromLTRB(30, 30, 30, 47),
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: const [
-                Icon(Icons.arrow_back_rounded),
-              ],
+            InkWell(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: const [
+                  Icon(Icons.arrow_back_rounded),
+                ],
+              ),
+              onTap: () => {Navigator.pop(context)},
             ),
             const SizedBox(
               height: 30,
@@ -34,7 +38,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      'Create your account',
+                      'Buat Akun Anda',
                       style:
                           TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
                     ),
@@ -43,7 +47,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                     Row(
                       children: [
-                        Text('Do you already have account ? ',
+                        Text('Anda sudah punya akun ? ',
                             style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,
@@ -59,24 +63,6 @@ class _RegisterPageState extends State<RegisterPage> {
               height: 25,
             ),
             Row(
-              children: [Text('Username')],
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            new TextField(
-              decoration: new InputDecoration(
-                border: new OutlineInputBorder(
-                  borderSide: new BorderSide(color: Color(0xffFFC33A)),
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                hintText: "Masukkan Username",
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Row(
               children: [Text('E-mail')],
             ),
             const SizedBox(
@@ -88,7 +74,29 @@ class _RegisterPageState extends State<RegisterPage> {
                   borderSide: new BorderSide(color: Color(0xffFFC33A)),
                   borderRadius: BorderRadius.circular(10.0),
                 ),
-                hintText: "Masukkan Nama",
+                focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xffFFC33A))),
+                hintText: "Masukkan E-mail",
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Row(
+              children: [Text('Nim')],
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            new TextField(
+              decoration: new InputDecoration(
+                border: new OutlineInputBorder(
+                  borderSide: new BorderSide(color: Color(0xffFFC33A)),
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xffFFC33A))),
+                hintText: "Masukkan Nim",
               ),
             ),
             const SizedBox(
@@ -129,8 +137,12 @@ class _RegisterPageState extends State<RegisterPage> {
                     borderRadius: BorderRadius.all(Radius.circular(8)),
                   ),
                 ),
-                onPressed: () {},
-                child: Text('Login Now',
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return LoginPage();
+                  }));
+                },
+                child: Text('Daftar Sekarang',
                     style:
                         TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
               ),

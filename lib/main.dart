@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kausar/pages/full_ui/login.dart';
+import 'package:kausar/pages/switch/switchlisttile.dart';
 
 void main() {
   runApp(const MyApp());
@@ -7,14 +7,13 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: 'Poppins'),
-      home: const Login(),
+      home: const SecondSwitch(),
     );
   }
 }

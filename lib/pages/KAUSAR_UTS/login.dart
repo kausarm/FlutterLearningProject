@@ -1,18 +1,16 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/widgets.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter/material.dart';
-import 'package:kausar/pages/full_ui/register.dart';
-import 'package:kausar/pages/theme.dart';
+import 'package:kausar/pages/KAUSAR_UTS/matakuliah.dart';
+import 'package:kausar/pages/KAUSAR_UTS/onboarding.dart';
+import 'package:kausar/pages/KAUSAR_UTS/register.dart';
 
-class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
+class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
-  State<Login> createState() => _LoginState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
-class _LoginState extends State<Login> {
+class _LoginPageState extends State<LoginPage> {
   bool isChecked = false;
   @override
   Widget build(BuildContext context) {
@@ -36,11 +34,18 @@ class _LoginState extends State<Login> {
         margin: const EdgeInsets.fromLTRB(30, 30, 30, 47),
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: const [
-                Icon(Icons.arrow_forward_rounded),
-              ],
+            InkWell(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: const [
+                  Icon(Icons.arrow_back_rounded),
+                ],
+              ),
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return onboarding();
+                }));
+              },
             ),
             const SizedBox(
               height: 30,
@@ -51,28 +56,18 @@ class _LoginState extends State<Login> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      'Welcome to Login',
+                      'Selamat datang di Login',
                       style:
                           TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
                     ),
                     const SizedBox(
                       height: 10,
                     ),
-                    const Text('Please fill E-mail & password to login your',
+                    const Text('Mohon masukkan NIM dan password untuk login',
                         style: TextStyle(
-                            fontSize: 14,
+                            fontSize: 13,
                             fontWeight: FontWeight.w400,
                             color: Color(0xff5F5F5F))),
-                    Row(
-                      children: [
-                        Text('app account. ',
-                            style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: Color(0xff5F5F5F))),
-                        Link(),
-                      ],
-                    ),
                   ],
                 ),
               ],
@@ -81,18 +76,19 @@ class _LoginState extends State<Login> {
               height: 25,
             ),
             Row(
-              children: [Text('E-mail')],
+              children: [Text('Nim')],
             ),
             const SizedBox(
               height: 10,
             ),
-            new TextField(
-              decoration: new InputDecoration(
-                border: new OutlineInputBorder(
-                  borderSide: new BorderSide(color: Color(0xffFFC33A)),
+            TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.0),
                 ),
-                hintText: "Masukkan Nama",
+                focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xffFFC33A))),
+                hintText: "Masukkan Nim",
               ),
             ),
             const SizedBox(
@@ -112,6 +108,8 @@ class _LoginState extends State<Login> {
                   borderSide: new BorderSide(color: Color(0xffFFC33A)),
                   borderRadius: new BorderRadius.circular(10.0),
                 ),
+                focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xffFFC33A))),
                 hintText: "*****************",
               ),
             ),
@@ -148,8 +146,42 @@ class _LoginState extends State<Login> {
                     borderRadius: BorderRadius.all(Radius.circular(8)),
                   ),
                 ),
-                onPressed: () {},
-                child: Text('Login Now',
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return Matakuliah();
+                  }));
+                },
+                child: Text('Login Sekarang',
+                    style:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            SizedBox(
+                height: 28,
+                child: Text(
+                  'Belum punya akun ?',
+                  style: TextStyle(fontSize: 12, color: Colors.lightGreen),
+                )),
+            SizedBox(
+              width: 300,
+              child: TextButton(
+                style: TextButton.styleFrom(
+                  primary: Colors.black,
+                  backgroundColor: Colors.blueGrey,
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return RegisterPage();
+                  }));
+                },
+                child: Text('Daftar Sekarang',
                     style:
                         TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
               ),
@@ -157,62 +189,9 @@ class _LoginState extends State<Login> {
             SizedBox(
               height: 50,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(left: 18),
-                  width: 140,
-                  height: 50,
-                  child: TextButton(
-                    onPressed: () {},
-                    child: Image(
-                      image: AssetImage("assets/images/gl.png"),
-                      width: 30,
-                      height: 30,
-                    ),
-                    style: TextButton.styleFrom(
-                        backgroundColor: Colors.grey[200],
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        )),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(right: 18),
-                  width: 140,
-                  height: 50,
-                  child: TextButton(
-                    onPressed: () {},
-                    child: const Image(
-                      image: AssetImage("assets/images/fb.png"),
-                      width: 30,
-                      height: 30,
-                    ),
-                    style: TextButton.styleFrom(
-                        backgroundColor: Colors.blue[900],
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        )),
-                  ),
-                ),
-              ],
-            ),
           ],
         ),
       ),
     )));
-  }
-
-  InkWell Link() {
-    return InkWell(
-      child:
-          Text('Sign Up', style: TextStyle(color: Colors.purple, fontSize: 14)),
-      onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return RegisterPage();
-        }));
-      },
-    );
   }
 }
