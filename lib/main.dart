@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kausar/pages/switch/switchlisttile.dart';
+import 'package:kausar/pages/date_picker/timeofday.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: 'Poppins'),
-      home: const SecondSwitch(),
+      home: const NewTimeOfDay(),
     );
   }
 }
