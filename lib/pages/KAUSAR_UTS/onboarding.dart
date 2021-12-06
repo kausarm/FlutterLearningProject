@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:kausar/pages/KAUSAR_UTS/login.dart';
-import 'package:kausar/pages/KAUSAR_UTS/register.dart';
+import 'package:kausar/pages/KAUSAR_UTS/fireregister.dart';
+import 'package:kausar/pages/KAUSAR_UTS/firelogin.dart';
 
 class onboarding extends StatelessWidget {
   const onboarding({Key? key}) : super(key: key);
@@ -50,7 +50,7 @@ class onboarding extends StatelessWidget {
                       onPressed: () {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
-                          return RegisterPage();
+                          return FireRegisterPage();
                         }));
                       },
                       child: Text(
@@ -72,7 +72,7 @@ class onboarding extends StatelessWidget {
                       onPressed: () {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
-                          return LoginPage();
+                          return FireLoginPage();
                         }));
                       },
                       child: const Text('Masuk',
@@ -86,14 +86,6 @@ class onboarding extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(
-                height: 180,
-              ),
-              Text('App Developed by : Muhammad Kausar'.toUpperCase(),
-                  style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.green,
-                      fontStyle: FontStyle.italic))
             ],
           ),
         ),

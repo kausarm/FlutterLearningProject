@@ -1,29 +1,24 @@
 import 'dart:ui';
-import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kausar/cubit/auth_cubit.dart';
+import 'package:kausar/pages/KAUSAR_UTS/fireregister.dart';
+import 'package:kausar/services/user_service.dart';
 import 'package:flutter/material.dart';
-import 'data.dart';
 import 'package:kausar/pages/KAUSAR_UTS/matakuliah.dart';
-import 'package:kausar/pages/KAUSAR_UTS/onboarding.dart';
-import 'package:kausar/pages/KAUSAR_UTS/register.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class FireLoginPage extends StatefulWidget {
+  const FireLoginPage({Key? key}) : super(key: key);
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _FireLoginPageState createState() => _FireLoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-  final nameController = TextEditingController();
-  final passwordController = TextEditingController();
+class _FireLoginPageState extends State<FireLoginPage> {
+  TextEditingController emailController = TextEditingController(text: '');
+  TextEditingController passwordController = TextEditingController(text: '');
 
   bool isChecked = false;
-
-  void dispose() {
-    // Clean up the controller when the widget is disposed.
-    nameController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
                     const SizedBox(
                       height: 10,
                     ),
-                    const Text('Mohon masukkan Nama dan Password untuk login',
+                    const Text('Mohon masukkan Email dan Password untuk login',
                         style: TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.w400,
@@ -86,7 +81,7 @@ class _LoginPageState extends State<LoginPage> {
               height: 25,
             ),
             Row(
-              children: [Text('Nama')],
+              children: [Text('E-mail')],
             ),
             const SizedBox(
               height: 10,
@@ -95,14 +90,14 @@ class _LoginPageState extends State<LoginPage> {
               child: Column(
                 children: [
                   TextField(
-                    controller: nameController,
+                    controller: emailController,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                       focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Color(0xffFFC33A))),
-                      hintText: "Masukkan Nama",
+                      hintText: "Masukkan E-mail",
                     ),
                   ),
                   const SizedBox(
@@ -155,33 +150,40 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(
               height: 55,
               width: 300,
-              child: TextButton(
-                style: TextButton.styleFrom(
-                  primary: Colors.black,
-                  backgroundColor: Color(0xffFFC33A),
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                  ),
-                ),
-                onPressed: () {
-                  data.forEach((e) {
-                    nameController.text != e
-                        ? Alert(
-                            context: context,
-                            type: AlertType.error,
-                            title: "Login Gagal",
-                            desc: '${nameController.text} tidak terdaftar',
-                          ).show()
-                        : Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                            return Matakuliah();
-                          }));
-                  });
+              child: BlocConsumer<AuthCubit, AuthState>(
+                listener: (context, state) {
+                  if (state is AuthSuccess) {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return Matakuliah();
+                    }));
+                  } else if (state is AuthFailed) {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        backgroundColor: Colors.red,
+                        content: Text(state.error)));
+                  }
                 },
-                child: Text('Login Sekarang',
-                    style:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+                builder: (context, state) {
+                  return TextButton(
+                    style: TextButton.styleFrom(
+                      primary: Colors.black,
+                      backgroundColor: Color(0xffFFC33A),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                      ),
+                    ),
+                    onPressed: () {
+                      context.read<AuthCubit>().signIn(
+                          email: emailController.text,
+                          password: passwordController.text);
+                    },
+                    child: Text('Login Sekarang',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w500)),
+                  );
+                },
               ),
             ),
             SizedBox(
@@ -206,7 +208,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return RegisterPage();
+                    return FireRegisterPage();
                   }));
                 },
                 child: Text('Daftar Sekarang',

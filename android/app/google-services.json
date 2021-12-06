@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "422463715400",
+    "project_id": "unameit-e3f53",
+    "storage_bucket": "unameit-e3f53.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:422463715400:android:abb59b453f1a481ed1c07d",
+        "android_client_info": {
+          "package_name": "com.example.kausar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "422463715400-cutu10kgabs45so79m83djs7o34pqjl3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgqCa2K1gPCFPoJhp_dMCPt6mnDBRAMs4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "422463715400-cutu10kgabs45so79m83djs7o34pqjl3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

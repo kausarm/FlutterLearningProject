@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kausar/cubit/auth_cubit.dart';
+import 'package:kausar/pages/KAUSAR_UTS/onboarding.dart';
 import 'data.dart';
-import 'package:kausar/pages/KAUSAR_UTS/login.dart';
+import 'package:kausar/pages/KAUSAR_UTS/firelogin.dart';
 
-class RegisterPage extends StatefulWidget {
-  const RegisterPage({Key? key}) : super(key: key);
+class FireRegisterPage extends StatefulWidget {
+  const FireRegisterPage({Key? key}) : super(key: key);
 
   @override
-  _RegisterPageState createState() => _RegisterPageState();
+  _FireRegisterPageState createState() => _FireRegisterPageState();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
-  final daftar = TextEditingController();
+class _FireRegisterPageState extends State<FireRegisterPage> {
+  TextEditingController nameController = TextEditingController(text: '');
+  TextEditingController emailController = TextEditingController(text: '');
+  TextEditingController passwordController = TextEditingController(text: '');
 
   @override
   Widget build(BuildContext context) {
@@ -71,6 +76,7 @@ class _RegisterPageState extends State<RegisterPage> {
               height: 10,
             ),
             new TextField(
+              controller: emailController,
               decoration: new InputDecoration(
                 border: new OutlineInputBorder(
                   borderSide: new BorderSide(color: Color(0xffFFC33A)),
@@ -91,7 +97,7 @@ class _RegisterPageState extends State<RegisterPage> {
               height: 10,
             ),
             new TextField(
-              controller: daftar,
+              controller: nameController,
               decoration: new InputDecoration(
                 border: new OutlineInputBorder(
                   borderSide: new BorderSide(color: Color(0xffFFC33A)),
@@ -112,6 +118,7 @@ class _RegisterPageState extends State<RegisterPage> {
               height: 10,
             ),
             new TextField(
+              controller: passwordController,
               obscureText: true,
               decoration: new InputDecoration(
                 hoverColor: Color(0xffFFC33A),
@@ -131,24 +138,46 @@ class _RegisterPageState extends State<RegisterPage> {
             SizedBox(
               height: 55,
               width: 300,
-              child: TextButton(
-                style: TextButton.styleFrom(
-                  primary: Colors.black,
-                  backgroundColor: Color(0xffFFC33A),
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                  ),
-                ),
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    data.add(daftar.text);
-                    return LoginPage();
-                  }));
+              child: BlocConsumer<AuthCubit, AuthState>(
+                listener: (context, state) {
+                  if (state is AuthSuccess) {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return onboarding();
+                    }));
+                  } else if (state is AuthFailed) {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        backgroundColor: Colors.red,
+                        content: Text(state.error)));
+                  }
                 },
-                child: Text('Daftar Sekarang',
-                    style:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+                builder: (context, state) {
+                  if (state is AuthLoading) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  return TextButton(
+                    style: TextButton.styleFrom(
+                      primary: Colors.black,
+                      backgroundColor: Color(0xffFFC33A),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                      ),
+                    ),
+                    onPressed: () {
+                      context.read<AuthCubit>().signUp(
+                          email: emailController.text,
+                          name: nameController.text,
+                          password: passwordController.text);
+                    },
+                    child: Text('Daftar Sekarang',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w500)),
+                  );
+                },
               ),
             ),
           ],
